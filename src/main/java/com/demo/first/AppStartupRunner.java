@@ -6,4 +6,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppStartupRunner implements CommandLineRunner {
 
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("Application has started using Command Line Runner!");
+    }
 }
