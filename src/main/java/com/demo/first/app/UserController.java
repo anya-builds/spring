@@ -15,6 +15,7 @@ public class UserController {
 
     @PostMapping
     public String  createUser(@RequestBody User user){
+        System.out.println(user.getEmail());
         userDb.put(user.getId(), user);
         return "User Created!!";
     }
