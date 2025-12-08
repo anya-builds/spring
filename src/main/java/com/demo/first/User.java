@@ -1,5 +1,6 @@
 package com.demo.first;
 
+//POJ--> plain old java Objects
 public class User {
     private int id;
     private String name;
@@ -9,5 +10,17 @@ public class User {
         this.id = id;
         this.email = email;
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
     }
 }
