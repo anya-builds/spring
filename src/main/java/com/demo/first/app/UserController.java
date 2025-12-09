@@ -18,7 +18,15 @@ public class UserController {
     }
 
     @PutMapping
-    public void updateUser(@RequestBody User user){
-        userDb.put(user.getId(), user);
+    public String updateUser(@RequestBody User user){
+        if(userDb.containsKey(user.getId()))
+            userDb.put(user.getId(), user);
+        return "Update Successfully!";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable int id){
+        userDb.remove(id);
+        return "User Deleted!";
     }
 }
