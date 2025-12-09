@@ -1,5 +1,8 @@
 package com.demo.first.app;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,11 +16,13 @@ public class UserController {
     private Map<Integer, User> userDb = new HashMap<>();
 
     @PostMapping
-    public String  createUser(@RequestBody User user){
+    public ResponseEntity<User>  createUser(@RequestBody User user){
         System.out.println(user.getEmail());
         userDb.putIfAbsent(user.getId(), user);
-        return "User Created!!";
+//        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
+
 
     @PutMapping
     public String updateUser(@RequestBody User user){
