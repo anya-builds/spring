@@ -25,10 +25,11 @@ public class UserController {
 
 
     @PutMapping
-    public String updateUser(@RequestBody User user){
-        if(userDb.containsKey(user.getId()))
+    public ResponseEntity<User> updateUser(@RequestBody User user){
+        if(!userDb.containsKey(user.getId()))
+            return ResponseEntity.notFound().build();
             userDb.put(user.getId(), user);
-        return "Update Successfully!";
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @DeleteMapping("/{id}")
