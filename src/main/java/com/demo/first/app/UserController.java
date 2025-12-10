@@ -44,4 +44,8 @@ public class UserController {
     public List<User> getUsers(){
         return new ArrayList<>(userDb.values());
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<String> getUser(){
+        return ResponseEntity.ok("Order for User: ");
+    }
 }
