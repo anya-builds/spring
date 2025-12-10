@@ -76,4 +76,9 @@ public class UserController {
 
         return ResponseEntity.ok(new ArrayList<>(userDb.values()));
     }
+
+    @GetMapping("/info")
+    public String getInfo(@RequestHeader("user-Agent") String userAgent){
+        return "User Agent: "+userAgent;
+    }
 }
