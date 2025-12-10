@@ -50,4 +50,14 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.ok( userDb.get(id));
     }
+    @GetMapping("/{userId}/orders/{orderId}")
+    public ResponseEntity<User> getUserOrder(
+            @PathVariable("userId") int id,
+            @PathVariable int orderId
+    ){
+        System.out.println("ORDER ID: "+ orderId);
+        if(!userDb.containsKey(id))
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.ok(userDb.get(id));
+    }
 }
