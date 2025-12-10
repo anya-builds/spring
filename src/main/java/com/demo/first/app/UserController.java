@@ -40,6 +40,9 @@ public class UserController {
         return "User Deleted!";
     }
 
+//    @GetMapping("/users","/user/{id}")
+
+
     @GetMapping
     public List<User> getUsers(){
         return new ArrayList<>(userDb.values());
@@ -59,5 +62,11 @@ public class UserController {
         if(!userDb.containsKey(id))
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.ok(userDb.get(id));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<User>> searchUsers(@RequestParam String name){
+        System.out.println(name);
+        return ResponseEntity.ok(new ArrayList<>(userDb.values()));
     }
 }
