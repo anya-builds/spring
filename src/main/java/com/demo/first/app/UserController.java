@@ -65,8 +65,15 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<User>> searchUsers(@RequestParam String name){
+    public ResponseEntity<List<User>> searchUsers(
+            @RequestParam(required = false, defaultValue = "alice") String name,
+            @RequestParam(required = false, defaultValue = "email") String email){
         System.out.println(name);
+        List<User> users = userDb.values().stream()
+                .filter(u -> u.getName().equalsIgnoreCase(name))
+                .filter(u -> u.getEmail().equalsIgnoreCase(email))
+                .toList();
+
         return ResponseEntity.ok(new ArrayList<>(userDb.values()));
     }
 }
