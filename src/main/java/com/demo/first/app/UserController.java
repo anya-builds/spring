@@ -44,8 +44,10 @@ public class UserController {
     public List<User> getUsers(){
         return new ArrayList<>(userDb.values());
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<String> getUser(){
-        return ResponseEntity.ok("Order for User: ");
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUser(@PathVariable("userId") int id){
+        if (!userDb.containsKey(id))
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.ok( userDb.get(id));
     }
 }
