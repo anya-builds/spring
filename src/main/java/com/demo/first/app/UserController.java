@@ -14,7 +14,7 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
     private UserService userService = new UserService();
-    private Map<Integer, User> userDb = new HashMap<>();
+
 
     public UserController(Map<Integer, User> userDb) {
         this.userDb = userDb;
@@ -29,10 +29,10 @@ public class UserController {
 
     @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user){
-        if(!userDb.containsKey(user.getId()))
-            return ResponseEntity.notFound().build();
-            userDb.put(user.getId(), user);
-        return ResponseEntity.status(HttpStatus.OK).body(user);
+        User updated = userService.updateUser(user);
+        if(updated== null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
