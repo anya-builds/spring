@@ -15,9 +15,8 @@ import java.util.Map;
 public class UserController {
     private UserService userService = new UserService();
 
-
-    public UserController(Map<Integer, User> userDb) {
-        this.userDb = userDb;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping
@@ -53,11 +52,14 @@ public class UserController {
         return userService.getAllUsers();
     }
     @GetMapping("/{userId}")
-    public ResponseEntity<User> getUser(@PathVariable("userId") int id){
-        if (!userDb.containsKey(id))
+    public ResponseEntity<User> getUser(
+            @PathVariable(value = "userId", required = false) int id){
+        User user = userService.getUserById(id);
+        if (user == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        return ResponseEntity.ok( userDb.get(id));
+        return ResponseEntity.ok(user);
     }
+
     @GetMapping("/{userId}/orders/{orderId}")
     public ResponseEntity<User> getUserOrder(
             @PathVariable(value = "userId", required = false) int id){
