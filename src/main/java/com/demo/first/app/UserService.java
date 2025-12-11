@@ -24,4 +24,11 @@ public class UserService {
         userDb.put(user.getId(),user);
         return user;
     }
+
+    public boolean deleteUser(int id) {
+        if(!userDb.containsKey(id))
+            return false;
+        userDb.remove(id);
+        return true;
+    }
 }

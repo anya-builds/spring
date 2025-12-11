@@ -36,11 +36,13 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable int id){
-        if (userDb.containsKey(id))
-            return "User not found!";
-        userDb.remove(id);
-        return "User Deleted!";
+    public ResponseEntity<String> deleteUser(@PathVariable int id){
+        boolean isDeleted = userService.deleteUser(id);
+        if(!isDeleted)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.noContent().build();
+
+
     }
 
 //    @GetMapping("/users","/user/{id}")
