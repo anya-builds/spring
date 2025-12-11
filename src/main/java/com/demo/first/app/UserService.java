@@ -4,7 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -30,5 +32,13 @@ public class UserService {
             return false;
         userDb.remove(id);
         return true;
+    }
+
+    public List<User> getAllUsers() {
+        return new ArrayList<>(userDb.values());
+    }
+
+    public User getUserById(int id) {
+        return userDb.get(id);
     }
 }

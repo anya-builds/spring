@@ -50,7 +50,7 @@ public class UserController {
 
     @GetMapping
     public List<User> getUsers(){
-        return new ArrayList<>(userDb.values());
+        return userService.getAllUsers();
     }
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUser(@PathVariable("userId") int id){
@@ -60,13 +60,12 @@ public class UserController {
     }
     @GetMapping("/{userId}/orders/{orderId}")
     public ResponseEntity<User> getUserOrder(
-            @PathVariable("userId") int id,
-            @PathVariable int orderId
-    ){
-        System.out.println("ORDER ID: "+ orderId);
-        if(!userDb.containsKey(id))
+            @PathVariable(value = "userId", required = false) int id){
+        User user = userService.getUserById(id);
+        if(user==null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        return ResponseEntity.ok(userDb.get(id));
+        return ResponseEntity.ok(user);
+
     }
 
     @GetMapping("/search")
