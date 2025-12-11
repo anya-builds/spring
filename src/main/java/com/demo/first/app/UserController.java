@@ -13,14 +13,17 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    private UserService userService = new UserService();
     private Map<Integer, User> userDb = new HashMap<>();
+
+    public UserController(Map<Integer, User> userDb) {
+        this.userDb = userDb;
+    }
 
     @PostMapping
     public ResponseEntity<User>  createUser(@RequestBody User user){
-        System.out.println(user.getEmail());
-        userDb.putIfAbsent(user.getId(), user);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+       User createdUser = userService.createUser(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
 
