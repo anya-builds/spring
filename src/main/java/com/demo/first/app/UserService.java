@@ -41,4 +41,11 @@ public class UserService {
     public User getUserById(int id) {
         return userDb.get(id);
     }
+
+    public List<User> searchUsers(String name, String email) {
+        return userDb.values().stream()
+                .filter(u -> u.getName().equalsIgnoreCase(name))
+                .filter(u -> u.getEmail().equalsIgnoreCase(email))
+                .toList();
+    }
 }
