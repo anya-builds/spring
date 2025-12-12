@@ -88,7 +88,7 @@ public class UserController {
                 +" : "+name;
     }
     //exception handling method
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler({IllegalArgumentException.class, NullPointerException.class})
     public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(
             IllegalArgumentException exception
     ){
