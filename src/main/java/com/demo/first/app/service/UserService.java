@@ -19,6 +19,11 @@ public class UserService {
     private final Logger logger= LoggerFactory.getLogger(UserController.class);
 
     public User createUser(User user) {
+        logger.info("Creating user...INFO");
+        logger.debug("Creating user...DEBUG");
+        logger.trace("Creating user...TRACE");
+        logger.warn("Creating user...WARN");
+        logger.error("Creating user...ERROR");
         System.out.println(user.getEmail());
         userDb.putIfAbsent(user.getId(), user);
 //        return ResponseEntity.status(HttpStatus.CREATED)
