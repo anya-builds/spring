@@ -1,7 +1,10 @@
 package com.demo.first.app.service;
 
+import com.demo.first.app.controller.UserController;
 import com.demo.first.app.exceptions.UserNotFoundException;
 import com.demo.first.app.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,9 +12,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Service
 public class UserService {
     private Map<Integer, User> userDb = new HashMap<>();
+    private final Logger logger= LoggerFactory.getLogger(UserController.class);
+
     public User createUser(User user) {
         System.out.println(user.getEmail());
         userDb.putIfAbsent(user.getId(), user);
