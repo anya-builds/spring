@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler({IllegalArgumentException.class, NullPointerException.class})
+    @ExceptionHandler({UserNotFoundException.class, IllegalArgumentException.class, NullPointerException.class})
     public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(
             Exception exception
     ){
