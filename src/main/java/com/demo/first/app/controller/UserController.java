@@ -1,8 +1,8 @@
-package com.demo.first.app;
+package com.demo.first.app.controller;
 
-import jakarta.websocket.OnClose;
+import com.demo.first.app.model.User;
+import com.demo.first.app.service.UserService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,7 +90,7 @@ public class UserController {
     //exception handling method
     @ExceptionHandler({IllegalArgumentException.class, NullPointerException.class})
     public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(
-            IllegalArgumentException exception
+            Exception exception
     ){
         Map<String, Object> errorResponse = new HashMap<>();
         errorResponse.put("timestamp", LocalDateTime.now());

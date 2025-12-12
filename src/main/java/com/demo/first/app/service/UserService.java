@@ -1,7 +1,6 @@
-package com.demo.first.app;
+package com.demo.first.app.service;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.demo.first.app.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

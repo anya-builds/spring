@@ -1,4 +1,4 @@
-package com.demo.first.app;
+package com.demo.first.app.model;
 
 //POJ--> plain old java Objects
 public class User {
