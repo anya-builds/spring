@@ -88,15 +88,5 @@ public class UserController {
                 +" : "+name;
     }
     //exception handling method
-    @ExceptionHandler({IllegalArgumentException.class, NullPointerException.class})
-    public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(
-            Exception exception
-    ){
-        Map<String, Object> errorResponse = new HashMap<>();
-        errorResponse.put("timestamp", LocalDateTime.now());
-        errorResponse.put("status",HttpStatus.BAD_REQUEST.value());
-        errorResponse.put("error", "Bad Request");
-        errorResponse.put("message", exception.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-    }
+
 }
