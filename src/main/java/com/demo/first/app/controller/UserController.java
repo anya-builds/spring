@@ -6,52 +6,50 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    private UserService userService = new UserService();
-
-
+    private UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping
-    public ResponseEntity<User>  createUser(@RequestBody User user){
-       User createdUser = userService.createUser(user);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User createdUser = userService.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
-
+    // 1 -> John, john@email.com
+    // 1 -> Alice, john@email.com
     @PutMapping
-    public ResponseEntity<User> updateUser(@RequestBody User user){
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
         User updated = userService.updateUser(user);
-        if(updated== null)
+        if (updated == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.ok(updated);
     }
 
+    // /user/1 /user/2 /user/3
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable int id){
+    public ResponseEntity<String> deleteUser(@PathVariable int id) {
         boolean isDeleted = userService.deleteUser(id);
-        if(!isDeleted)
+        if (!isDeleted)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.noContent().build();
-
-
     }
 
-//    @GetMapping("/users","/user/{id}")
-
+//    @GetMapping({"/users", "/user/{id}"})
 
     @GetMapping
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userService.getAllUsers();
     }
+
+    // /user/100, /user/400
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUser(
             @PathVariable(value = "userId", required = false) int id){
@@ -61,34 +59,36 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+
     @GetMapping("/{userId}/orders/{orderId}")
     public ResponseEntity<User> getUserOrder(
-            @PathVariable(value = "userId", required = false) int id){
+            @PathVariable("userId") int id,
+            @PathVariable int orderId
+    ){
         User user = userService.getUserById(id);
-        if(user==null)
+        if (user == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.ok(user);
-
     }
 
+    // /search?name=john
     @GetMapping("/search")
     public ResponseEntity<List<User>> searchUsers(
             @RequestParam(required = false, defaultValue = "alice") String name,
-            @RequestParam(required = false, defaultValue = "email") String email){
-
+            @RequestParam(required = false, defaultValue = "email") String email
+    ) {
 
         return ResponseEntity.ok(userService.searchUsers(name, email));
     }
+
 
     @GetMapping("/info/{id}")
     public String getInfo(
             @PathVariable int id,
             @RequestParam String name,
-            @RequestHeader("user-Agent") String userAgent){
-        return "User Agent: "+userAgent
-                +" : "+id
-                +" : "+name;
+            @RequestHeader("User-Agent") String userAgent) {
+        return "User Agent: " + userAgent
+                + " : " + id
+                + " : " + name;
     }
-    //exception handling method
-
 }
