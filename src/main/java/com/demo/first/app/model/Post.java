@@ -14,7 +14,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "post_tags",
             joinColumns = @JoinColumn(name = "post_id"),
